@@ -6,3 +6,10 @@ dnf install -y postgresql16-server postgresql16
 
 /usr/pgsql-16/bin/postgresql-16-setup initdb
 
+sed -e "/listen_address/ c listen_address = '*'" /var/lib/pgsql/16/data/postgresql.conf
+cp pg_hba.conf /var/lib/pgsql/16/data/pg_hba.conf
+
+systemctl restart postgresql-16
+
+postgres /usr/pgsql-16/bin/psql -f schema.sql
+
